@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "token.h"
 
@@ -23,17 +24,21 @@ void printtoken(Token tok)
     }
 }
 
+char operators[] = "+-*/()";
+
 void initsymbols()
 {
     int i;
     for (i = 0; i < ASCII; i++) {
-        optable[ASCII] = -1;
+        // Default non-matches to -1
+        optable[i] = -1;
     }
 
-    optable['+'] = PLUSOP;
-    optable['-'] = MINUSOP;
-    optable['*'] = TIMESOP;
-    optable['/'] = DIVIDEOP;
+    for (i = 0; i < strlen(operators); i++) {
+        // The order in operators corresponds to the
+        // order in the enum, which is why this works
+        optable[(int) operators[i]] = i;
+    }
 }
 
 Token cons(Token item, Token list)

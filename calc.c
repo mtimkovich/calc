@@ -26,10 +26,10 @@ Token tokenize(const char* input)
 
             printtoken(tok);
             list = cons(tok, list);
-        } else if (optable[c] >= 0) {
+        } else if (optable[(int) input[c]] >= 0) {
             tok->tokentype = OPERATOR;
             tok->datatype = INTEGER;
-            tok->whichval = optable[c];
+            tok->whichval = optable[(int) input[c]];
 
             printtoken(tok);
             list = cons(tok, list);
@@ -43,7 +43,7 @@ Token tokenize(const char* input)
 
 int main()
 {
-    char* input;
+//     char* input;
 
     for (;;) {
 //         input = readline("> ");
@@ -52,8 +52,8 @@ int main()
 //             break;
 //         }
 
-        input = malloc(4);
-        strncpy(input, "1+2", 4);
+//         char input[] = "3.14+2";
+        char input[] = "1+2";
 
         printf("%s\n", input);
         printf("size: %zu\n", strlen(input));
@@ -63,7 +63,7 @@ int main()
 
         add_history(input);
 
-        free(input);
+//         free(input);
         break;
     }
 

@@ -9,7 +9,9 @@ enum optype
     PLUSOP,
     MINUSOP,
     TIMESOP,
-    DIVIDEOP
+    DIVIDEOP,
+    LPAREN,
+    RPAREN
 };
 
 enum datatype 
