@@ -1,14 +1,14 @@
 enum tokentype 
 {
     OPERATOR, 
-    NUMBERTOK 
+    NUMBER 
 };
 
 enum optype 
 {
     PLUSOP,
     MINUSOP,
-    TIMEOP,
+    TIMESOP,
     DIVIDEOP
 };
 
@@ -37,4 +37,11 @@ typedef struct tokn *Token;
 #define intval val.intnum
 #define realval val.realnum
 
+#define ASCII 256
+int optable[ASCII];
+
 Token talloc();
+void printtoken(Token);
+void initsymbols();
+Token cons(Token, Token); 
+int length(Token);
