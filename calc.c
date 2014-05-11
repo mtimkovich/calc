@@ -9,10 +9,7 @@
 
 Token gentree(const char* input)
 {
-    Token tok = talloc();
-    tok->datatype = OPERATOR;
-
-    return tok;
+    Token stack = talloc();
 }
 
 int main()
