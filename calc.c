@@ -64,6 +64,11 @@ Token tokenize(const char* input)
     return list;
 }
 
+Token parse(Token tokens)
+{
+    return NULL;
+}
+
 int main()
 {
 //     char* input;
@@ -82,7 +87,7 @@ int main()
 //         printf("size: %zu\n", strlen(input));
 
         Token tokens = tokenize(input);
-//         printf("%d\n", length(tokens));
+        Token tree = parse(tokens);
 
         add_history(input);
 
