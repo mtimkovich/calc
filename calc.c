@@ -8,34 +8,56 @@
 
 #include "token.h"
 
+void make_number(Token tok, const char* input, int* ptr)
+{
+    tok->tokentype = NUMBER;
+    tok->datatype = INTEGER;
+
+    // Get the length of the number token
+    int length = 0;
+
+    while (input[*ptr+length] != '\0' && isdigit(input[*ptr+length])) {
+        length++;
+    }
+
+    char* buffer = malloc(length+1);
+    strncpy(buffer, input + *ptr, length);
+    sscanf(buffer, "%d", &tok->intval);
+
+    free(buffer);
+
+    *ptr += length-1;
+}
+
 Token tokenize(const char* input)
 {
     initsymbols();
     Token list = NULL;
-    int c = 0;
+    int i = 0;
 
-    while (input[c] != '\0') {
+    while (input[i] != '\0') {
         Token tok = talloc();
 
-        if (isdigit(input[c])) {
-            // TODO: Make this handle numbers that are not one digit
-            // e.g. long numbers and decimals
-            tok->tokentype = NUMBER;
-            tok->datatype = INTEGER;
-            tok->intval = input[c] - '0';
+        int c = input[i];
+
+        if (isdigit(c) || c == '.') {
+            // TODO: Handle floats
+            make_number(tok, input, &i);
 
             printtoken(tok);
             list = cons(tok, list);
-        } else if (optable[(int) input[c]] >= 0) {
+        } else if (optable[c] >= 0) {
             tok->tokentype = OPERATOR;
             tok->datatype = INTEGER;
-            tok->whichval = optable[(int) input[c]];
+            tok->whichval = optable[c];
 
             printtoken(tok);
             list = cons(tok, list);
+        } else {
+            free(tok);
         }
 
-        c++;
+        i++;
     }
 
     return list;
@@ -52,14 +74,14 @@ int main()
 //             break;
 //         }
 
-//         char input[] = "3.14+2";
-        char input[] = "1+2";
+        char input[] = "314+2";
+//         char input[] = "1+2";
 
         printf("%s\n", input);
-        printf("size: %zu\n", strlen(input));
+//         printf("size: %zu\n", strlen(input));
 
         Token tokens = tokenize(input);
-        printf("%d\n", length(tokens));
+//         printf("%d\n", length(tokens));
 
         add_history(input);
 
