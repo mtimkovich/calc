@@ -64,8 +64,34 @@ Token tokenize(const char* input)
     return list;
 }
 
+void reduceop(Token operand_stack, Token op_stack)
+{
+}
+
 Token parse(Token tokens)
 {
+    Token op_stack = NULL;
+    Token operand_stack = NULL;
+
+    while (tokens != NULL) {
+        Token next = tokens->link;
+
+        if (tokens->tokentype == NUMBER) {
+            operand_stack = cons(tokens, operand_stack);
+        } else if (tokens->tokentype == OPERATOR) {
+            op_stack = cons(tokens, op_stack);
+        }
+
+        tokens = next;
+    }
+
+    while (op_stack != NULL) {
+        reduceop(operand_stack, op_stack);
+    }
+
+    printf("length: %d\n", length(operand_stack));
+    printf("length: %d\n", length(op_stack));
+
     return NULL;
 }
 
