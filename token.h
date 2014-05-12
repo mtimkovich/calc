@@ -26,6 +26,7 @@ struct tokn
     enum datatype datatype;
     struct tokn* operands;
     struct tokn* link;
+    char name;
     union {
         enum optype which;
         int intnum;

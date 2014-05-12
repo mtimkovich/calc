@@ -20,7 +20,7 @@ void printtoken(Token tok)
     if (tok->tokentype == NUMBER) {
         printf("type: %d\top: %d\tval: %d\n", tok->tokentype, tok->datatype, tok->intval);
     } else if (tok->tokentype == OPERATOR) {
-        printf("type: %d\top: %d\tval: %d\n", tok->tokentype, tok->datatype, tok->whichval);
+        printf("type: %d\top: %d\tval: %c\n", tok->tokentype, tok->datatype, tok->name);
     }
 }
 

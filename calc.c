@@ -50,6 +50,7 @@ Token tokenize(const char* input)
             tok->tokentype = OPERATOR;
             tok->datatype = INTEGER;
             tok->whichval = optable[c];
+            tok->name = c;
 
             printtoken(tok);
             list = cons(tok, list);
