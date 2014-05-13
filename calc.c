@@ -44,7 +44,6 @@ Token tokenize(const char* input)
             // TODO: Handle floats
             make_number(tok, input, &i);
 
-            printtoken(tok);
             list = cons(tok, list);
         } else if (optable[c] >= 0) {
             tok->tokentype = OPERATOR;
@@ -52,7 +51,6 @@ Token tokenize(const char* input)
             tok->whichval = optable[c];
             tok->name = c;
 
-            printtoken(tok);
             list = cons(tok, list);
         } else {
             free(tok);
@@ -64,8 +62,19 @@ Token tokenize(const char* input)
     return list;
 }
 
-void reduceop(Token operand_stack, Token op_stack)
+Token reduceop(Token operand_stack, Token op_stack)
 {
+    Token lhs = operand_stack;
+    Token rhs = lhs->link;
+    operand_stack = rhs->link;
+
+    Token op = op_stack;
+
+    op->operands = lhs;
+    lhs->link = rhs;
+    rhs->link = NULL;
+
+    return cons(op, operand_stack);
 }
 
 Token parse(Token tokens)
@@ -86,13 +95,11 @@ Token parse(Token tokens)
     }
 
     while (op_stack != NULL) {
-        reduceop(operand_stack, op_stack);
+        operand_stack = reduceop(operand_stack, op_stack);
+        op_stack = op_stack->link;
     }
 
-    printf("length: %d\n", length(operand_stack));
-    printf("length: %d\n", length(op_stack));
-
-    return NULL;
+    return operand_stack;
 }
 
 int main()
@@ -110,10 +117,12 @@ int main()
 //         char input[] = "1+2";
 
         printf("%s\n", input);
-//         printf("size: %zu\n", strlen(input));
 
         Token tokens = tokenize(input);
         Token tree = parse(tokens);
+        printtoken(tree);
+        printtoken(tree->operands);
+        printtoken(tree->operands->link);
 
         add_history(input);
 

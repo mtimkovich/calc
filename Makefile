@@ -1,7 +1,7 @@
 CC=gcc
 EXE=calc
 LDLIBS=-ledit
-CFLAGS=-Wall
+CFLAGS=-Wall -g -O0
 OBJECTS=calc.o token.o
 
 all: $(EXE)
