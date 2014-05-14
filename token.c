@@ -59,7 +59,6 @@ int length(Token list)
 Token reverse_aux(Token list, Token output)
 {
     if (list == NULL) {
-        printtoken(output);
         return output;
     } else {
         Token first = list;
