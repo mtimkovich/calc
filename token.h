@@ -48,3 +48,4 @@ void printtoken(Token);
 void initsymbols();
 Token cons(Token, Token); 
 int length(Token);
+Token reverse(Token);

@@ -56,6 +56,23 @@ int length(Token list)
     }
 }
 
+Token reverse_aux(Token list, Token output)
+{
+    if (list == NULL) {
+        printtoken(output);
+        return output;
+    } else {
+        Token first = list;
+        Token rest = list->link;
+        return reverse_aux(rest, cons(first, output));
+    }
+}
+
+Token reverse(Token list)
+{
+    return reverse_aux(list, NULL);
+}
+
 void pplist(Token tree)
 {
     Token tok;

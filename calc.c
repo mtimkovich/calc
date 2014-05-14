@@ -59,14 +59,15 @@ Token tokenize(const char* input)
         i++;
     }
 
-    return list;
+    // Reverse so the tokens are in order
+    return reverse(list);
 }
 
 Token reduceop(Token operand_stack, Token op_stack)
 {
-    Token lhs = operand_stack;
-    Token rhs = lhs->link;
-    operand_stack = rhs->link;
+    Token rhs = operand_stack;
+    Token lhs = rhs->link;
+    operand_stack = lhs->link;
 
     Token op = op_stack;
 
