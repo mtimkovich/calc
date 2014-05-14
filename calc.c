@@ -68,12 +68,20 @@ Token reduceop(Token operand_stack, Token op_stack)
     Token rhs = operand_stack;
     Token lhs = rhs->link;
     operand_stack = lhs->link;
-
+    
     Token op = op_stack;
 
     op->operands = lhs;
     lhs->link = rhs;
     rhs->link = NULL;
+
+    printf("op: ");
+    printtoken(op);
+    printf("lhs: ");
+    printtoken(lhs);
+    printf("rhs: ");
+    printtoken(rhs);
+    printf("\n");
 
     return cons(op, operand_stack);
 }
@@ -114,7 +122,8 @@ int main()
 //             break;
 //         }
 
-        char input[] = "314+2";
+//         char input[] = "314+2";
+        char input[] = "1*2+3";
 //         char input[] = "1+2";
 
         printf("%s\n", input);
@@ -123,7 +132,7 @@ int main()
         Token tree = parse(tokens);
         printtoken(tree);
         printtoken(tree->operands);
-        printtoken(tree->operands->link);
+//         printtoken(tree->operands->link);
 
         add_history(input);
 

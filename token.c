@@ -72,7 +72,23 @@ Token reverse(Token list)
     return reverse_aux(list, NULL);
 }
 
-void pplist(Token tree)
+void printelem(Token tok)
+{
+    if (tok->tokentype == NUMBER) {
+        printf("%d ", tok->intval);
+    } else if (tok->tokentype == OPERATOR) {
+        printf("%c ", tok->name);
+    }
+}
+
+void printlist(Token tree)
 {
     Token tok;
+
+    printelem(tree);
+
+    if (tree->link != NULL) {
+        printlist(tree);
+    }
+
 }
