@@ -56,20 +56,20 @@ int length(Token list)
     }
 }
 
-Token reverse_aux(Token list, Token output)
+Token nreverse_aux(Token list, Token output)
 {
     if (list == NULL) {
         return output;
     } else {
         Token first = list;
         Token rest = list->link;
-        return reverse_aux(rest, cons(first, output));
+        return nreverse_aux(rest, cons(first, output));
     }
 }
 
-Token reverse(Token list)
+Token nreverse(Token list)
 {
-    return reverse_aux(list, NULL);
+    return nreverse_aux(list, NULL);
 }
 
 void printelem(Token tok)
