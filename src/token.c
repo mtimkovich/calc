@@ -102,3 +102,16 @@ void pplist(Token tree)
     pplist_aux(tree);
     printf("\n");
 }
+
+void free_tree(Token tree)
+{
+    free(tree);
+
+    if (tree->operands != NULL) {
+        free_tree(tree->operands);
+    }
+
+    if (tree->link != NULL) {
+        free_tree(tree->link);
+    }
+}

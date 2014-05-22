@@ -181,6 +181,7 @@ int main()
 
         add_history(input);
 
+        free_tree(tree);
         free(input);
 //         break;
     }

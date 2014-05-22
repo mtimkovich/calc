@@ -59,3 +59,4 @@ void printelem(Token tok);
 Token op(Token tok);
 Token lhs(Token tok);
 Token rhs(Token tok);
+void free_tree(Token tree);
