@@ -83,12 +83,4 @@ void printelem(Token tok)
 
 void printlist(Token tree)
 {
-    Token tok;
-
-    printelem(tree);
-
-    if (tree->link != NULL) {
-        printlist(tree);
-    }
-
 }
