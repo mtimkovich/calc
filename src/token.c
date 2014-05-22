@@ -97,14 +97,12 @@ void pplist_aux(Token tree)
 {
     printelem(tree);
 
-    if (tree->operands != NULL || tree->link != NULL) {
-        if (tree->operands != NULL) {
-            pplist_aux(tree->operands);
-        }
+    if (tree->operands != NULL) {
+        pplist_aux(tree->operands);
+    }
 
-        if (tree->link != NULL) {
-            pplist_aux(tree->link);
-        }
+    if (tree->link != NULL) {
+        pplist_aux(tree->link);
     }
 }
 

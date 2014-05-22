@@ -2,10 +2,12 @@ CC=gcc
 EXE=calc
 LDLIBS=-ledit
 CFLAGS=-Wall -g -O0
-SRC_DIR=src
+
 OBJECTS=calc.o token.o
-OUT_OBJ=$(addprefix $(SRC_DIR)/,$(OBJECTS))
 HEADERS=token.h
+
+SRC_DIR=src
+OUT_OBJ=$(addprefix $(SRC_DIR)/,$(OBJECTS))
 OUT_HEADERS=$(addprefix $(SRC_DIR)/,$(HEADERS))
 
 all: $(EXE)
@@ -15,4 +17,4 @@ $(EXE): $(OUT_OBJ)
 
 .PHONY: clean
 clean:
-	rm $(OBJECTS) $(EXE)
+	rm $(OUT_OBJ) $(EXE)

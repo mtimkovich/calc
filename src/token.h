@@ -10,6 +10,7 @@ enum optype
     MINUSOP,
     TIMESOP,
     DIVIDEOP,
+    POWEROP,
     LPAREN,
     RPAREN
 };
