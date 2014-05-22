@@ -4,6 +4,9 @@ enum tokentype
     NUMBER 
 };
 
+// The order here is important.
+// It is ordered by precedence, and matches the order
+// in the operators string in token.c
 enum optype 
 {
     PLUSOP,
