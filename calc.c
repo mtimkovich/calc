@@ -104,8 +104,9 @@ Token parse(Token tokens)
     }
 
     while (op_stack != NULL) {
+        Token rest_op_stack = op_stack->link;
         operand_stack = reduceop(operand_stack, op_stack);
-        op_stack = op_stack->link;
+        op_stack = rest_op_stack;
     }
 
     return operand_stack;
@@ -129,8 +130,9 @@ int main()
         printf("%s\n", input);
 
         Token tokens = tokenize(input);
-        Token tree = parse(tokens);
         pplist(tokens);
+        Token tree = parse(tokens);
+        pplist(tree);
 //         printtoken(tree->operands->link);
 
         add_history(input);

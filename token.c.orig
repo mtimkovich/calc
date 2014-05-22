@@ -56,16 +56,20 @@ int length(Token list)
     }
 }
 
-Token nreverse_aux(Token list, Token output)
+void pplist(Token tree)
 {
-    if (list == NULL) {
-        return output;
+    if (tree->operands != NULL || tree->link != NULL) {
+        if (tree->operands != NULL) {
+            pplist(tree->operands);
+        } else if (tree->link != NULL) {
+            pplist(tree->link);
+        }
     } else {
-        Token first = list;
-        Token rest = list->link;
-        return nreverse_aux(rest, cons(first, output));
+        printf("%c\n", tree->name);
     }
 }
+<<<<<<< HEAD
+=======
 
 Token nreverse(Token list)
 {
@@ -81,23 +85,7 @@ void printelem(Token tok)
     }
 }
 
-void pplist_aux(Token tree)
+void printlist(Token tree)
 {
-    printelem(tree);
-
-    if (tree->operands != NULL || tree->link != NULL) {
-        if (tree->operands != NULL) {
-            pplist_aux(tree->operands);
-        }
-
-        if (tree->link != NULL) {
-            pplist_aux(tree->link);
-        }
-    }
 }
-
-void pplist(Token tree)
-{
-    pplist_aux(tree);
-    printf("\n");
-}
+>>>>>>> nreverse
