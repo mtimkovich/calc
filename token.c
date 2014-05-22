@@ -56,6 +56,31 @@ int length(Token list)
     }
 }
 
+Token nreverse_aux(Token list, Token output)
+{
+    if (list == NULL) {
+        return output;
+    } else {
+        Token first = list;
+        Token rest = list->link;
+        return nreverse_aux(rest, cons(first, output));
+    }
+}
+
+Token nreverse(Token list)
+{
+    return nreverse_aux(list, NULL);
+}
+
+void printelem(Token tok)
+{
+    if (tok->tokentype == NUMBER) {
+        printf("%d ", tok->intval);
+    } else if (tok->tokentype == OPERATOR) {
+        printf("%c ", tok->name);
+    }
+}
+
 void pplist(Token tree)
 {
     if (tree->operands != NULL || tree->link != NULL) {
