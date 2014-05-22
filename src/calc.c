@@ -8,6 +8,7 @@
 
 #include "token.h"
 
+// Convert the string to an integer token
 void make_number(Token tok, const char* input, int* ptr)
 {
     tok->tokentype = NUMBER;
@@ -29,6 +30,7 @@ void make_number(Token tok, const char* input, int* ptr)
     *ptr += length-1;
 }
 
+// Convert the input string into Token structs
 Token tokenize(const char* input)
 {
     initsymbols();
@@ -63,6 +65,7 @@ Token tokenize(const char* input)
     return nreverse(list);
 }
 
+// Reduce the operand and op stack to a tree
 Token reduceop(Token operand_stack, Token op_stack)
 {
     Token rhs = operand_stack;
@@ -78,9 +81,10 @@ Token reduceop(Token operand_stack, Token op_stack)
     return cons(op, operand_stack);
 }
 
+// Convert the tokens to a tree
 Token parse(Token tokens)
 {
-    // TODO: Operator precedence and parenthesis
+    // TODO: Parenthesis
     Token op_stack = NULL;
     Token operand_stack = NULL;
 
@@ -90,6 +94,12 @@ Token parse(Token tokens)
         if (tokens->tokentype == NUMBER) {
             operand_stack = cons(tokens, operand_stack);
         } else if (tokens->tokentype == OPERATOR) {
+            while (op_stack != NULL && tokens->whichval <= op_stack->whichval) {
+                Token rest_op_stack = op_stack->link;
+                operand_stack = reduceop(operand_stack, op_stack);
+                op_stack = rest_op_stack;
+            }
+
             op_stack = cons(tokens, op_stack);
         }
 
@@ -118,6 +128,7 @@ int power(int a, int b)
     return 0;
 }
 
+// Do math
 int math(Token oper, int a, int b)
 {
     switch (oper->name) {
@@ -125,11 +136,13 @@ int math(Token oper, int a, int b)
         case '-': return a - b;
         case '*': return a * b;
         case '/': return a / b;
+        case '%': return a % b;
         case '^': return power(a, b);
         default: return -1;
     }
 }
 
+// Evaluate the tree to get a number value
 int evaluate(Token expr)
 {
     if (expr->operands != NULL) {
@@ -153,9 +166,7 @@ int main()
             break;
         }
 
-//         char input[] = "314+2";
-//         char input[] = "1*2+3";
-//         char input[] = "1+2";
+//         char input[] = "2*2+2";
 
 //         printf("%s\n", input);
 

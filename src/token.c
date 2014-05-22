@@ -24,7 +24,7 @@ void printtoken(Token tok)
     }
 }
 
-char operators[] = "+-*/^()";
+char operators[] = "+-*/%^()";
 
 void initsymbols()
 {
@@ -45,15 +45,6 @@ Token cons(Token item, Token list)
 {
     item->link = list;
     return item;
-}
-
-int length(Token list)
-{
-    if (list == NULL) {
-        return 0;
-    } else {
-        return 1 + length(list->link);
-    }
 }
 
 Token nreverse_aux(Token list, Token output)
