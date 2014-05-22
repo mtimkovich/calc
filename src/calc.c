@@ -84,7 +84,6 @@ Token reduceop(Token operand_stack, Token op_stack)
 // Convert the tokens to a tree
 Token parse(Token tokens)
 {
-    // TODO: Parenthesis
     Token op_stack = NULL;
     Token operand_stack = NULL;
 
@@ -94,13 +93,30 @@ Token parse(Token tokens)
         if (tokens->tokentype == NUMBER) {
             operand_stack = cons(tokens, operand_stack);
         } else if (tokens->tokentype == OPERATOR) {
-            while (op_stack != NULL && tokens->whichval <= op_stack->whichval) {
-                Token rest_op_stack = op_stack->link;
-                operand_stack = reduceop(operand_stack, op_stack);
-                op_stack = rest_op_stack;
-            }
+            if (tokens->whichval == LPAREN) {
+                op_stack = cons(tokens, op_stack);
+            } else if (tokens->whichval == RPAREN) {
+                while (op_stack->whichval != LPAREN) {
+                    Token rest_op_stack = op_stack->link;
+                    operand_stack = reduceop(operand_stack, op_stack);
+                    op_stack = rest_op_stack;
+                }
 
-            op_stack = cons(tokens, op_stack);
+                op_stack = op_stack->link;
+            } else {
+                while (op_stack != NULL && op_stack->whichval != LPAREN && tokens->whichval <= op_stack->whichval) {
+                    Token rest_op_stack = op_stack->link;
+                    operand_stack = reduceop(operand_stack, op_stack);
+                    op_stack = rest_op_stack;
+                }
+
+                op_stack = cons(tokens, op_stack);
+            }
+        }
+
+        // If the token was a parenthesis, free it. The other tokens are reused
+        if (tokens->whichval == LPAREN || tokens->whichval == RPAREN) {
+            free(tokens);
         }
 
         tokens = next;
