@@ -60,7 +60,7 @@ Token tokenize(const char* input)
     }
 
     // Reverse so the tokens are in order
-    return reverse(list);
+    return nreverse(list);
 }
 
 Token reduceop(Token operand_stack, Token op_stack)
@@ -130,8 +130,7 @@ int main()
 
         Token tokens = tokenize(input);
         Token tree = parse(tokens);
-        printtoken(tree);
-        printtoken(tree->operands);
+        pplist(tokens);
 //         printtoken(tree->operands->link);
 
         add_history(input);

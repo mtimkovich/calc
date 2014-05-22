@@ -49,3 +49,4 @@ void initsymbols();
 Token cons(Token, Token); 
 int length(Token);
 Token nreverse(Token);
+void pplist(Token tree);
