@@ -51,3 +51,6 @@ int length(Token);
 Token nreverse(Token);
 void pplist(Token tree);
 void printelem(Token tok);
+Token op(Token tok);
+Token lhs(Token tok);
+Token rhs(Token tok);

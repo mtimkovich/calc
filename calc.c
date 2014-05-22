@@ -75,19 +75,12 @@ Token reduceop(Token operand_stack, Token op_stack)
     lhs->link = rhs;
     rhs->link = NULL;
 
-    printf("op: ");
-    printtoken(op);
-    printf("lhs: ");
-    printtoken(lhs);
-    printf("rhs: ");
-    printtoken(rhs);
-    printf("\n");
-
     return cons(op, operand_stack);
 }
 
 Token parse(Token tokens)
 {
+    // TODO: Operator precedence and parenthesis
     Token op_stack = NULL;
     Token operand_stack = NULL;
 
@@ -112,33 +105,59 @@ Token parse(Token tokens)
     return operand_stack;
 }
 
+int math(Token oper, int a, int b)
+{
+    switch (oper->name) {
+        case '+': return a + b;
+        case '-': return a - b;
+        case '*': return a * b;
+        case '/': return a / b;
+        default: return -1;
+    }
+}
+
+int evaluate(Token expr)
+{
+    if (expr->operands != NULL) {
+        int a = evaluate(lhs(expr));
+        int b = evaluate(rhs(expr));
+
+        return math(op(expr), a, b);
+    } else {
+        return expr->intval;
+    }
+}
+
 int main()
 {
-//     char* input;
+    char* input;
 
     for (;;) {
-//         input = readline("> ");
+        input = readline("> ");
 
-//         if (!input || strcmp(input, "exit") == 0) {
-//             break;
-//         }
+        if (!input || strcmp(input, "exit") == 0) {
+            break;
+        }
 
 //         char input[] = "314+2";
-        char input[] = "1*2+3";
+//         char input[] = "1*2+3";
 //         char input[] = "1+2";
 
-        printf("%s\n", input);
+//         printf("%s\n", input);
 
         Token tokens = tokenize(input);
-        pplist(tokens);
+//         pplist(tokens);
         Token tree = parse(tokens);
-        pplist(tree);
-//         printtoken(tree->operands->link);
+//         pplist(tree);
+
+        int result = evaluate(tree);
+
+        printf("\n%d\n\n", result);
 
         add_history(input);
 
-//         free(input);
-        break;
+        free(input);
+//         break;
     }
 
     return 0;

@@ -72,6 +72,18 @@ Token nreverse(Token list)
     return nreverse_aux(list, NULL);
 }
 
+Token op(Token tok) {
+    return tok;
+}
+
+Token lhs(Token tok) {
+    return tok->operands;
+}
+
+Token rhs(Token tok) {
+    return tok->operands->link;
+}
+
 void printelem(Token tok)
 {
     if (tok->tokentype == NUMBER) {
