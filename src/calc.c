@@ -105,6 +105,19 @@ Token parse(Token tokens)
     return operand_stack;
 }
 
+int power(int a, int b)
+{
+    if (b == 0) {
+        return 1;
+    } else if (b == 1) {
+        return a;
+    } else if (b > 0) {
+        return a * power(a, b-1);
+    }
+
+    return 0;
+}
+
 int math(Token oper, int a, int b)
 {
     switch (oper->name) {
@@ -112,6 +125,7 @@ int math(Token oper, int a, int b)
         case '-': return a - b;
         case '*': return a * b;
         case '/': return a / b;
+        case '^': return power(a, b);
         default: return -1;
     }
 }

@@ -24,7 +24,7 @@ void printtoken(Token tok)
     }
 }
 
-char operators[] = "+-*/()";
+char operators[] = "+-*/^()";
 
 void initsymbols()
 {
