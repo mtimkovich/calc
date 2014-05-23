@@ -105,8 +105,6 @@ void pplist(Token tree)
 
 void free_tree(Token tree)
 {
-    free(tree);
-
     if (tree->operands != NULL) {
         free_tree(tree->operands);
     }
@@ -114,4 +112,6 @@ void free_tree(Token tree)
     if (tree->link != NULL) {
         free_tree(tree->link);
     }
+
+    free(tree);
 }
