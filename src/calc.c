@@ -135,7 +135,13 @@ int math(Token oper, int a, int b)
         case '+': return a + b;
         case '-': return a - b;
         case '*': return a * b;
-        case '/': return a / b;
+        case '/': 
+                  if (b == 0) {
+                      printf("error: Division by zero.\n");
+                      return -1;
+                  }
+
+                  return a / b;
         case '%': return a % b;
         case '^': return power(a, b);
         default: return -1;
