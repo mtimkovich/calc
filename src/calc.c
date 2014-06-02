@@ -191,6 +191,10 @@ int main()
             break;
         }
 
+        if (strlen(input) == 0) {
+            continue;
+        }
+
         Token tokens = tokenize(input);
         Token tree = parse(tokens);
 
