@@ -104,7 +104,10 @@ Token parse(Token tokens)
 
                 op_stack = op_stack->link;
             } else {
-                while (op_stack != NULL && op_stack->whichval != LPAREN && tokens->whichval <= op_stack->whichval) {
+                while (op_stack != NULL 
+                        && op_stack->whichval != LPAREN 
+                        && tokens->whichval <= op_stack->whichval) 
+                {
                     Token rest_op_stack = op_stack->link;
                     operand_stack = reduceop(operand_stack, op_stack);
                     op_stack = rest_op_stack;
@@ -115,7 +118,7 @@ Token parse(Token tokens)
         }
 
         // If the token was a parenthesis, free it. The other tokens are reused
-        if (tokens->whichval == LPAREN || tokens->whichval == RPAREN) {
+        if (tokens->tokentype == OPERATOR && (tokens->whichval == LPAREN || tokens->whichval == RPAREN)) {
             free(tokens);
         }
 
@@ -188,14 +191,8 @@ int main()
             break;
         }
 
-//         char input[] = "2*2+2";
-
-//         printf("%s\n", input);
-
         Token tokens = tokenize(input);
-//         pplist(tokens);
         Token tree = parse(tokens);
-//         pplist(tree);
 
         int result = evaluate(tree);
 
@@ -205,7 +202,6 @@ int main()
 
         free_tree(tree);
         free(input);
-//         break;
     }
 
     return 0;
