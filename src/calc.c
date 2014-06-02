@@ -192,6 +192,7 @@ int main()
         }
 
         if (strlen(input) == 0) {
+            free(input);
             continue;
         }
 
